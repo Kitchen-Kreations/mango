@@ -34,7 +34,7 @@ func checkPassword(username string, password string, ip string, port string) boo
 }
 
 func main() {
-	parser := argparse.NewParser("quietly-go", "ssh brute force")
+	parser := argparse.NewParser("mango", "ssh brute force")
 
 	var targetIP *string = parser.String("i", "ip", &argparse.Options{Required: true, Help: "IP to target"})
 	var port *string = parser.String("p", "port", &argparse.Options{Required: false, Help: "Port", Default: "22"})
